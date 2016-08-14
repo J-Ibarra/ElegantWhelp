@@ -25,24 +25,22 @@ public class Main {
                 -0.5f, 0.5f, 0f,
                 0.5f, 0.5f, 0f,
                 0.5f, -0.5f, 0f,
-
-                0.5f, -0.5f, 0f,
                 -0.5f, -0.5f, 0f,
-                -0.5f, 0.5f, 0f,
-
         };
 
-        float[] textute = new float[]{
+        float[] tex = new float[]{
                 0, 0,
                 1, 0,
                 1, 1,
-
-                1, 1,
                 0, 1,
-                0, 0,
         };
 
-        Model model = new Model(vertices, textute);
+        int[] indices = new int[]{
+                0, 1, 2,
+                2, 3, 0,
+        };
+
+        Model model = new Model(vertices, tex, indices);
 
         Texture texture = new Texture("testTexture.png");
         glEnable(GL_TEXTURE_2D);
