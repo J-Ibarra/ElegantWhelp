@@ -24,6 +24,10 @@ public class Main {
         while (!glfwWindowShouldClose(win)) {
             glfwPollEvents();
 
+            if(glfwGetKey(win, GLFW_KEY_ESCAPE) == GLFW_TRUE) {
+                glfwSetWindowShouldClose(win, true);
+            }
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             glBegin(GL_QUADS);
@@ -40,6 +44,7 @@ public class Main {
             glfwSwapBuffers(win);
         }
 
+        glfwDestroyWindow(win);
         glfwTerminate();
     }
 
