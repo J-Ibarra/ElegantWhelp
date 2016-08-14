@@ -21,23 +21,27 @@ public class Main {
 
         createCapabilities();
 
+        Texture texture = new Texture("testTexture.png");
+        glEnable(GL_TEXTURE_2D);
         while (!glfwWindowShouldClose(win)) {
             glfwPollEvents();
 
-            if(glfwGetKey(win, GLFW_KEY_ESCAPE) == GLFW_TRUE) {
+            if (glfwGetKey(win, GLFW_KEY_ESCAPE) == GLFW_TRUE) {
                 glfwSetWindowShouldClose(win, true);
             }
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+            texture.bind();
+
             glBegin(GL_QUADS);
-            glColor3f(1, 0, 0);
+            glTexCoord2f(0, 0);
             glVertex2f(-0.5f, 0.5f);
-            glColor3f(0, 1, 0);
+            glTexCoord2f(0, 1);
             glVertex2f(0.5f, 0.5f);
-            glColor3f(0, 0, 1);
+            glTexCoord2f(1, 1);
             glVertex2f(0.5f, -0.5f);
-            glColor3f(1, 1, 0);
+            glTexCoord2f(1, 0);
             glVertex2f(-0.5f, -0.5f);
             glEnd();
 
