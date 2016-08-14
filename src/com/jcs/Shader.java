@@ -34,7 +34,8 @@ public class Shader {
         glAttachShader(program, vs);
         glAttachShader(program, fs);
 
-        //glBindAttribLocation(program, 0, "vertices");
+        glBindAttribLocation(program, 0, "vertices");
+        glBindAttribLocation(program, 1, "textures");
 
         glLinkProgram(program);
         if (glGetProgrami(program, GL_LINK_STATUS) == GL_FALSE) {
@@ -48,8 +49,8 @@ public class Shader {
     }
 
     public void setUniform(String name, int value) {
-        int location = glGetUniformLocation(program,name);
-        if(location != -1) {
+        int location = glGetUniformLocation(program, name);
+        if (location != -1) {
             glUniform1i(location, value);
         }
     }

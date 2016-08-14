@@ -42,7 +42,7 @@ public class Main {
 
         Model model = new Model(vertices, tex, indices);
         Shader shader = new Shader("shader.vs","shader.fs");
-        //Texture texture = new Texture("testTexture.png");
+        Texture texture = new Texture("testTexture.png");
         glEnable(GL_TEXTURE_2D);
 
 
@@ -57,7 +57,8 @@ public class Main {
 
             //texture.bind();
             shader.bind();
-            shader.setUniform("green", 1);
+            shader.setUniform("sampler", 0);
+            texture.bind(0);
             model.render();
             /*texture.bind();
 

@@ -5,6 +5,7 @@ import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL20.*;
 
 /**
  * Created by Jcs on 14/8/2016.
@@ -32,27 +33,29 @@ public class Model {
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindTexture(GL_ARRAY_BUFFER, 0);
+
+
     }
 
     public void render() {
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        glEnableClientState(GL_INDEX_ARRAY);
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
+
 
         glBindBuffer(GL_ARRAY_BUFFER, vId);
-        glVertexPointer(3, GL_FLOAT, 0, 0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
 
         glBindBuffer(GL_ARRAY_BUFFER, tId);
-        glTexCoordPointer(2, GL_FLOAT, 0, 0);
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
-
         glDrawElements(GL_TRIANGLES, drawCount, GL_UNSIGNED_INT, 0);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindTexture(GL_ARRAY_BUFFER, 0);
-        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-        glDisableClientState(GL_VERTEX_ARRAY);
+
+        glDisableVertexAttribArray(1);
+        glDisableVertexAttribArray(0);
     }
 
     private FloatBuffer createFloatBuffer(float[] data) {
