@@ -57,6 +57,7 @@ public class Main {
 
             //texture.bind();
             shader.bind();
+            shader.setUniform("green", 1);
             model.render();
             /*texture.bind();
 
