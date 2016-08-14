@@ -8,7 +8,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Main {
 
-    public Main() {
+    public Main() throws Exception {
         if (!glfwInit()) {
             System.err.println("GLFW Failed to initialize!");
             System.exit(0);
@@ -41,8 +41,8 @@ public class Main {
         };
 
         Model model = new Model(vertices, tex, indices);
-
-        Texture texture = new Texture("testTexture.png");
+        Shader shader = new Shader("shader.vs","shader.fs");
+        //Texture texture = new Texture("testTexture.png");
         glEnable(GL_TEXTURE_2D);
 
 
@@ -55,7 +55,8 @@ public class Main {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            texture.bind();
+            //texture.bind();
+            shader.bind();
             model.render();
             /*texture.bind();
 
@@ -77,7 +78,7 @@ public class Main {
         glfwTerminate();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         new Main();
     }
 }

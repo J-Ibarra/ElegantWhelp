@@ -2,7 +2,9 @@ package com.jcs;
 
 import org.lwjgl.BufferUtils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.channels.SeekableByteChannel;
 import java.nio.file.Files;
@@ -33,5 +35,17 @@ public class IOUtil {
         } else
             return null;
 
+    }
+
+    public static String ioReadFileAsString(String fileName) throws IOException {
+        StringBuilder result = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName)))) {
+            String line;
+            while ((line = br.readLine()) != null)
+                result.append(line).append('\n');
+            br.close();
+        }
+        return result.toString();
     }
 }
