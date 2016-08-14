@@ -21,8 +21,33 @@ public class Main {
 
         createCapabilities();
 
+        float[] vertices = new float[]{
+                -0.5f, 0.5f, 0f,
+                0.5f, 0.5f, 0f,
+                0.5f, -0.5f, 0f,
+
+                0.5f, -0.5f, 0f,
+                -0.5f, -0.5f, 0f,
+                -0.5f, 0.5f, 0f,
+
+        };
+
+        float[] textute = new float[]{
+                0, 0,
+                1, 0,
+                1, 1,
+
+                1, 1,
+                0, 1,
+                0, 0,
+        };
+
+        Model model = new Model(vertices, textute);
+
         Texture texture = new Texture("testTexture.png");
         glEnable(GL_TEXTURE_2D);
+
+
         while (!glfwWindowShouldClose(win)) {
             glfwPollEvents();
 
@@ -33,6 +58,8 @@ public class Main {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             texture.bind();
+            model.render();
+            /*texture.bind();
 
             glBegin(GL_QUADS);
             glTexCoord2f(0, 0);
@@ -43,7 +70,7 @@ public class Main {
             glVertex2f(0.5f, -0.5f);
             glTexCoord2f(1, 0);
             glVertex2f(-0.5f, -0.5f);
-            glEnd();
+            glEnd();*/
 
             glfwSwapBuffers(win);
         }
