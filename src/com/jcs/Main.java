@@ -24,8 +24,9 @@ public class Main {
         createCapabilities();
 
         Camera camera = new Camera(640, 480);
+        TileRenderer renderer = new TileRenderer();
 
-        float[] vertices = new float[]{
+        /*float[] vertices = new float[]{
                 -0.5f, 0.5f, 0f,
                 0.5f, 0.5f, 0f,
                 0.5f, -0.5f, 0f,
@@ -42,11 +43,11 @@ public class Main {
         int[] indices = new int[]{
                 0, 1, 2,
                 2, 3, 0,
-        };
+        };*/
 
-        Model model = new Model(vertices, tex, indices);
+        //Model model = new Model(vertices, tex, indices);
         Shader shader = new Shader("shader.vs", "shader.fs");
-        Texture texture = new Texture("testTexture.png");
+        //Texture texture = new Texture("testTexture.png");
 
         glEnable(GL_TEXTURE_2D);
 
@@ -74,11 +75,16 @@ public class Main {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            shader.bind();
+            for (int y = 0; y < 8; y++) {
+                for (int x = 0; x < 8; x++) {
+                    renderer.renderTile(0,x,y,shader,new Matrix4f().scale(scale), camera);
+                }
+            }
+            /*shader.bind();
             shader.setUniform("sampler", 0);
             shader.setUniform("projection", camera.getProjection().scale(scale));
             texture.bind(0);
-            model.render();
+            model.render();*/
 
             glfwSwapBuffers(win);
         }
