@@ -1,6 +1,6 @@
-package com.jcs.tiles;
+package com.jcs.world.tiles;
 
-import com.jcs.Tile;
+import com.jcs.world.Tile;
 
 /**
  * Created by Jcs on 14/8/2016.

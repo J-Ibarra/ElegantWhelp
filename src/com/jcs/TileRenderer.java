@@ -1,5 +1,6 @@
 package com.jcs;
 
+import com.jcs.world.Tile;
 import org.joml.Matrix4f;
 
 import java.util.HashMap;

@@ -1,6 +1,8 @@
 package com.jcs;
 
+import com.jcs.world.World;
 import org.joml.Matrix4f;
+import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -11,6 +13,8 @@ import static org.lwjgl.opengl.GL11.*;
 public class Main {
 
     public Main() throws Exception {
+        GLFWErrorCallback.createPrint(System.err).set();
+
         if (!glfwInit()) {
             System.err.println("GLFW Failed to initialize!");
             System.exit(0);
@@ -26,28 +30,9 @@ public class Main {
         Camera camera = new Camera(640, 480);
         TileRenderer renderer = new TileRenderer();
 
-        /*float[] vertices = new float[]{
-                -0.5f, 0.5f, 0f,
-                0.5f, 0.5f, 0f,
-                0.5f, -0.5f, 0f,
-                -0.5f, -0.5f, 0f,
-        };
-
-        float[] tex = new float[]{
-                0, 0,
-                1, 0,
-                1, 1,
-                0, 1,
-        };
-
-        int[] indices = new int[]{
-                0, 1, 2,
-                2, 3, 0,
-        };*/
-
-        //Model model = new Model(vertices, tex, indices);
         Shader shader = new Shader("shader.vs", "shader.fs");
-        //Texture texture = new Texture("testTexture.png");
+
+        World world = new World(64, 64);
 
         glEnable(GL_TEXTURE_2D);
 
@@ -75,22 +60,14 @@ public class Main {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            for (int y = 0; y < 8; y++) {
-                for (int x = 0; x < 8; x++) {
-                    renderer.renderTile(0,x,y,shader,new Matrix4f().scale(scale), camera);
-                }
-            }
-            /*shader.bind();
-            shader.setUniform("sampler", 0);
-            shader.setUniform("projection", camera.getProjection().scale(scale));
-            texture.bind(0);
-            model.render();*/
+            world.render(renderer, shader, new Matrix4f().scale(scale), camera);
 
             glfwSwapBuffers(win);
         }
 
         glfwDestroyWindow(win);
         glfwTerminate();
+        glfwSetErrorCallback(null).free();
     }
 
     public static void main(String[] args) throws Exception {
