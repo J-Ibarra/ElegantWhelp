@@ -1,6 +1,8 @@
 package com.jcs;
 
 
+import org.joml.Matrix4f;
+
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -52,6 +54,15 @@ public class Shader {
         int location = glGetUniformLocation(program, name);
         if (location != -1) {
             glUniform1i(location, value);
+        }
+    }
+
+    public void setUniform(String name, Matrix4f matrix) {
+        int location = glGetUniformLocation(program, name);
+        float[] data = new float[16];
+        matrix.get(data);
+        if (location != -1) {
+            glUniformMatrix4fv(location, false, data);
         }
     }
 

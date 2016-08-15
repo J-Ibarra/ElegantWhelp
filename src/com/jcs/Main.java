@@ -1,5 +1,7 @@
 package com.jcs;
 
+import org.joml.Matrix4f;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 import static org.lwjgl.opengl.GL.*;
@@ -41,8 +43,11 @@ public class Main {
         };
 
         Model model = new Model(vertices, tex, indices);
-        Shader shader = new Shader("shader.vs","shader.fs");
+        Shader shader = new Shader("shader.vs", "shader.fs");
         Texture texture = new Texture("testTexture.png");
+
+        Matrix4f projection = new Matrix4f().ortho2D(-640 / 2, 640 / 2, -480 / 2, 480 / 2).scale(64);
+
         glEnable(GL_TEXTURE_2D);
 
 
@@ -55,23 +60,11 @@ public class Main {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            //texture.bind();
             shader.bind();
             shader.setUniform("sampler", 0);
+            shader.setUniform("projection",projection);
             texture.bind(0);
             model.render();
-            /*texture.bind();
-
-            glBegin(GL_QUADS);
-            glTexCoord2f(0, 0);
-            glVertex2f(-0.5f, 0.5f);
-            glTexCoord2f(0, 1);
-            glVertex2f(0.5f, 0.5f);
-            glTexCoord2f(1, 1);
-            glVertex2f(0.5f, -0.5f);
-            glTexCoord2f(1, 0);
-            glVertex2f(-0.5f, -0.5f);
-            glEnd();*/
 
             glfwSwapBuffers(win);
         }
@@ -80,7 +73,7 @@ public class Main {
         glfwTerminate();
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         new Main();
     }
 }
