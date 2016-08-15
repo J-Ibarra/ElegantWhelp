@@ -33,16 +33,14 @@ public class Main {
 
         Shader shader = new Shader("shader.vs", "shader.fs");
 
-        World world = new World(64, 64);
+        World world = new World(24, 24);
 
         world.setTile(Tile.test2, 0, 0);
-        world.setTile(Tile.test2, 63, 0);
-        world.setTile(Tile.test2, 0, 63);
-        world.setTile(Tile.test2, 63, 63);
+        world.setTile(Tile.test2, 23, 0);
+        world.setTile(Tile.test2, 0, 23);
+        world.setTile(Tile.test2, 23, 23);
 
         glEnable(GL_TEXTURE_2D);
-
-        float scale = 1f;
 
         while (!glfwWindowShouldClose(win)) {
             glfwPollEvents();
@@ -54,25 +52,21 @@ public class Main {
             }
 
             if (glfwGetKey(win, GLFW_KEY_LEFT_SHIFT) == GLFW_TRUE)
-                ma = 3f;
-
-            if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_TRUE)
-                scale += (0.1f * ma);
-            if (glfwGetKey(win, GLFW_KEY_E) == GLFW_TRUE)
-                scale -= (0.1f * ma);
+                ma = 5f;
 
             if (glfwGetKey(win, GLFW_KEY_W) == GLFW_TRUE)
                 camera.addPosition(0f, 0.1f * ma, 0f);
             if (glfwGetKey(win, GLFW_KEY_S) == GLFW_TRUE)
                 camera.addPosition(0f, -0.1f * ma, 0f);
             if (glfwGetKey(win, GLFW_KEY_A) == GLFW_TRUE)
-                camera.addPosition(-0.1f * ma, 0f, 0f);
-            if (glfwGetKey(win, GLFW_KEY_D) == GLFW_TRUE)
                 camera.addPosition(0.1f * ma, 0f, 0f);
+            if (glfwGetKey(win, GLFW_KEY_D) == GLFW_TRUE)
+                camera.addPosition(-0.1f * ma, 0f, 0f);
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            world.render(renderer, shader, new Matrix4f().scale(scale), camera);
+            world.correctCamera(camera, 640, 480);
+            world.render(renderer, shader, camera);
 
             glfwSwapBuffers(win);
         }
