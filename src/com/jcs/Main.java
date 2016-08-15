@@ -23,6 +23,8 @@ public class Main {
 
         createCapabilities();
 
+        Camera camera = new Camera(640, 480);
+
         float[] vertices = new float[]{
                 -0.5f, 0.5f, 0f,
                 0.5f, 0.5f, 0f,
@@ -46,11 +48,9 @@ public class Main {
         Shader shader = new Shader("shader.vs", "shader.fs");
         Texture texture = new Texture("testTexture.png");
 
-        Matrix4f projection = new Matrix4f().ortho2D(-640 / 2, 640 / 2, -480 / 2, 480 / 2).scale(64);
-
         glEnable(GL_TEXTURE_2D);
 
-
+        float scale = 1f;
         while (!glfwWindowShouldClose(win)) {
             glfwPollEvents();
 
@@ -58,11 +58,25 @@ public class Main {
                 glfwSetWindowShouldClose(win, true);
             }
 
+            if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_TRUE)
+                scale += 0.1f;
+            if (glfwGetKey(win, GLFW_KEY_E) == GLFW_TRUE)
+                scale -= 0.1f;
+
+            if (glfwGetKey(win, GLFW_KEY_W) == GLFW_TRUE)
+                camera.addPosition(0f, 0.1f, 0f);
+            if (glfwGetKey(win, GLFW_KEY_S) == GLFW_TRUE)
+                camera.addPosition(0f, -0.1f, 0f);
+            if (glfwGetKey(win, GLFW_KEY_A) == GLFW_TRUE)
+                camera.addPosition(-0.1f, 0f, 0f);
+            if (glfwGetKey(win, GLFW_KEY_D) == GLFW_TRUE)
+                camera.addPosition(0.1f, 0f, 0f);
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             shader.bind();
             shader.setUniform("sampler", 0);
-            shader.setUniform("projection",projection);
+            shader.setUniform("projection", camera.getProjection().scale(scale));
             texture.bind(0);
             model.render();
 
