@@ -9,7 +9,9 @@ public class Tile {
 
     public static Tile[] tiles = new Tile[256];
 
-    public static final Tile test = new testTile(0, "testTexture.png");
+    public static final Tile test = new testTile(255, "testTexture.png");
+    public static final Tile test2 = new testTile(254, "testTexture2.png");
+
 
     private final int id;
     private final String texture;

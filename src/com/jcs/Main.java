@@ -1,5 +1,6 @@
 package com.jcs;
 
+import com.jcs.world.Tile;
 import com.jcs.world.World;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -34,29 +35,40 @@ public class Main {
 
         World world = new World(64, 64);
 
+        world.setTile(Tile.test2, 0, 0);
+        world.setTile(Tile.test2, 63, 0);
+        world.setTile(Tile.test2, 0, 63);
+        world.setTile(Tile.test2, 63, 63);
+
         glEnable(GL_TEXTURE_2D);
 
         float scale = 1f;
+
         while (!glfwWindowShouldClose(win)) {
             glfwPollEvents();
+
+            float ma = 1f;
 
             if (glfwGetKey(win, GLFW_KEY_ESCAPE) == GLFW_TRUE) {
                 glfwSetWindowShouldClose(win, true);
             }
 
+            if (glfwGetKey(win, GLFW_KEY_LEFT_SHIFT) == GLFW_TRUE)
+                ma = 3f;
+
             if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_TRUE)
-                scale += 0.1f;
+                scale += (0.1f * ma);
             if (glfwGetKey(win, GLFW_KEY_E) == GLFW_TRUE)
-                scale -= 0.1f;
+                scale -= (0.1f * ma);
 
             if (glfwGetKey(win, GLFW_KEY_W) == GLFW_TRUE)
-                camera.addPosition(0f, 0.1f, 0f);
+                camera.addPosition(0f, 0.1f * ma, 0f);
             if (glfwGetKey(win, GLFW_KEY_S) == GLFW_TRUE)
-                camera.addPosition(0f, -0.1f, 0f);
+                camera.addPosition(0f, -0.1f * ma, 0f);
             if (glfwGetKey(win, GLFW_KEY_A) == GLFW_TRUE)
-                camera.addPosition(-0.1f, 0f, 0f);
+                camera.addPosition(-0.1f * ma, 0f, 0f);
             if (glfwGetKey(win, GLFW_KEY_D) == GLFW_TRUE)
-                camera.addPosition(0.1f, 0f, 0f);
+                camera.addPosition(0.1f * ma, 0f, 0f);
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
