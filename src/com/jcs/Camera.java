@@ -1,5 +1,6 @@
 package com.jcs;
 
+import com.jcs.entity.Player;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -9,10 +10,15 @@ import org.joml.Vector3f;
 public class Camera {
     public Vector3f position;
     public Matrix4f projection;
+    public final float left, right, bottom, top;
 
     public Camera(int width, int height) {
         position = new Vector3f();
-        projection = new Matrix4f().setOrtho2D(0, width , height, 0);
+        left = -width/2;
+        right = width/2;
+        bottom = -height/2;
+        top = height/2;
+        projection = new Matrix4f().setOrtho2D(left, right, bottom, top);
     }
 
     public void setPosition(Vector3f vec) {
@@ -37,7 +43,7 @@ public class Camera {
 
     public Matrix4f getProjection() {
         Matrix4f target = new Matrix4f().setTranslation(position);
-        projection.mul(target,target);
+        projection.mul(target, target);
         return target;
     }
 }
