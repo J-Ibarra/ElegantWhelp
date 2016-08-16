@@ -59,6 +59,15 @@ public class Main {
         world.setTile(Tile.test2, 23, 0);
         world.setTile(Tile.test2, 0, 23);
         world.setTile(Tile.test2, 23, 23);
+
+        for (int i = 0; i < 5; i++) {
+            world.setTile(Tile.testSolid, i + 5, 0);
+            if (i == 4) {
+                for (int j = 0; j < 5; j++) {
+                    world.setTile(Tile.testSolid, i + 5, j);
+                }
+            }
+        }
         Player player = new Player();
         world.add(player);
 

@@ -48,7 +48,7 @@ public class Player {
         scale = new Vector3f(32, 32, 1);
     }
 
-    public void update(long win) {
+    public void update(long win, World world) {
 
         float ma = 0.3f;
         if (glfwGetKey(win, GLFW_KEY_LEFT_SHIFT) == GLFW_TRUE)

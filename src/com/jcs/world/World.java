@@ -5,7 +5,6 @@ import com.jcs.Shader;
 import com.jcs.TileRenderer;
 import com.jcs.entity.Player;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 
 /**
  * Created by Jcs on 14/8/2016.
@@ -34,7 +33,7 @@ public class World {
     }
 
     public void update(long win) {
-        player.update(win);
+        player.update(win,this);
     }
 
     public void render(TileRenderer renderer, Shader shader, Camera camera) {
